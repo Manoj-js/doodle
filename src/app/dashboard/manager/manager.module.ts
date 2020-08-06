@@ -7,6 +7,7 @@ import { ManagerRoutingModule } from './manager.routing';
 import { TasksComponent } from './tasks/tasks.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { DateTimePickerComponent } from '../../shared/date-time-picker/date-time';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
   declarations: [
   UsersComponent,
   TasksComponent,
+  DateTimePickerComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })

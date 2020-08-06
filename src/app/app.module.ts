@@ -12,6 +12,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthServiceService } from './Services/auth-service.service';
 import { AuthInterceptor } from './Services/interceptor/interceptor.service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     DashboardModule,
     HttpClientModule,
     ModalModule.forRoot(),
+    CalendarModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [

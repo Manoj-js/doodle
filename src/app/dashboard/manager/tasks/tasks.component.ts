@@ -14,29 +14,33 @@ import { ManagerService } from 'src/app/Services/manager/manager.service';
 export class TasksComponent implements OnInit {
 
   p = 1;
- public params: any;
- dateTimeFormat: string = 'YYYY-MM-DD HH:mm';
- effectiveTill: string;
- list = []
- dropDown = []
- public userprofileDetails:ProfileDetailsApi_Response;
- @ViewChild('model') public Model: ModalDirective;
- @ViewChild('profile') public Profile: ModalDirective;
+  public params: any;
+  dateTimeFormat: string = 'YYYY-MM-DD HH:mm';
+  effectiveTill: string;
+  list = []
+  dropDown = []
+  public userprofileDetails: ProfileDetailsApi_Response;
+  @ViewChild('model') public Model: ModalDirective;
+  @ViewChild('profile') public Profile: ModalDirective;
   constructor(public _auth: AuthServiceService,
     private managerService: ManagerService) { }
 
   ngOnInit(): void {
-    if(this._auth.getToken){
-      this._auth.getProfileDetails().subscribe((res) => {
-       this.userprofileDetails = res
-      })
+    let effectiveDate = moment().utcOffset(environment.UTC).format('DD:MM:YYYY');
+    this.params = {
+      'effective_till': effectiveDate
     }
-    this.managerService.getWorkersDropDownList().subscribe((res) =>{
+    if (this._auth.getToken) {
+      this._auth.getProfileDetails().subscribe((res) => {
+        this.userprofileDetails = res;
+      });
+    }
+    this.managerService.getWorkersDropDownList().subscribe((res) => {
       this.dropDown = res.data
     })
   }
 
-  addContact(){
+  addContact() {
 
   }
 

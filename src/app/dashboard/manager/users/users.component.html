@@ -1,45 +1,33 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
     <a class="navbar-brand ml-3" routerLink="/contact">DoodleBlue</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li>
-          <a class="nav-link " [routerLink]="['/dashboard/manager/tasks']" routerLinkActive="router-link-active" >Tasks</a>
+          <a class="nav-link " [routerLink]="['/dashboard/manager/tasks']"
+            routerLinkActive="router-link-active">Tasks</a>
         </li>
-       <li>
-        <a class="nav-link " [routerLink]="['/dashboard/manager/users']" routerLinkActive="router-link-active" >Users</a>
-       </li>
+        <li>
+          <a class="nav-link " [routerLink]="['/dashboard/manager/users']"
+            routerLinkActive="router-link-active">Users</a>
+        </li>
 
       </ul>
       <div class="dropdown">
-        <button class="btn btn-primary  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"  (click)="Model.show()"aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-primary  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          (click)="Model.show()" aria-haspopup="true" aria-expanded="false">
           {{userprofileDetails.data?.fullName}}
         </button>
 
       </div>
       <div>
 
-        <div
-          bsModal
-          #model="bs-modal"
-          class="modal fade"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="myModalLabel"
-        >
+        <div bsModal #model="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog modal-danger" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -67,12 +55,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  (click)="Model.hide()"
-                  data-dismiss="modal"
-                >
+                <button type="button" class="btn btn-primary" (click)="Model.hide()" data-dismiss="modal">
                   Okay
                 </button>
               </div>
@@ -91,12 +74,8 @@
     </span>
     <p>welcome to Users Portal</p>
     <div class="input-group">
-      <input
-        style="background-color: #e9ecef;"
-        placeholder="search..."
-        class="form-control py-2 rounded-pill"
-        type="search"
-      />
+      <input style="background-color: #e9ecef;" placeholder="search..." class="form-control py-2 rounded-pill"
+        type="search" />
       <span class="input-group-append">
         <button class="btn rounded-pill border-0 ml-n5" type="button">
           <i class="fa fa-search"></i>
@@ -134,10 +113,9 @@
             <td>
               <span style="max-width: 20px;">
                 <label class="toggle-switch">
-                  <input type="checkbox" class="switch-btn"
-                      >
+                  <input type="checkbox" class="switch-btn">
                   <span class="slider round"></span>
-              </label>
+                </label>
               </span>
             </td>
           </tr>
@@ -185,53 +163,36 @@
     </div>
   </div>
   <div class="pull-right">
-    <pagination-controls
-      class="my-pagination"
-      (pageChange)="p = $event"
-    ></pagination-controls>
+    <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
   </div>
 
 </div>
 
 
-<div
-  bsModal
-  #model
-  class="modal fade"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="myModalLabel"
-  aria-hidden="true"
->
+<div bsModal #model class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Assign Task</h4>
       </div>
       <div class="modal-body">
-        <form >
+        <form>
           <div class="form-group">
             <label for="formGroupExampleInput">Task Title</label>
-            <input type="text" class="form-control"  placeholder="Example input placeholder">
+            <input type="text" class="form-control" placeholder="Example input placeholder">
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Task Discription:</label>
-            <textarea
-              rows="2"
-              type="text"
-              class="form-control"
-              #tomessage
-              placeholder="Enter the message.."
-            ></textarea>
+            <textarea rows="2" type="text" class="form-control" #tomessage placeholder="Enter the message.."></textarea>
           </div>
           <div class="col-4 route-effective-calendar">
             <label>Effective Till</label>
-            <app-date-time-picker [params]="params" (selectDate)="getDateSelection($event)">
-            </app-date-time-picker>
-        </div>
+            <app-date-time [params]="params" (selectDate)="getDateSelection($event)">
+            </app-date-time>
+          </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Worker:</label>
-            <select  class="form-control" #toContact>
+            <select class="form-control" #toContact>
               <option [selected]="true" [disabled]="true">Please select</option>
               <!-- <option *ngFor="let cont of contacts">
                 {{ cont.fullname }}</option
@@ -242,19 +203,10 @@
         </form>
 
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-dismiss="modal"
-            (click)="Model.hide()"
-          >
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="Model.hide()">
             Close
           </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-
-          >
+          <button type="button" class="btn btn-primary">
             Add Task
           </button>
         </div>

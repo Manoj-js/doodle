@@ -13,19 +13,23 @@ import { ProfileDetailsApi_Response } from 'src/app/models/models';
 })
 export class UsersComponent implements OnInit {
   p = 1;
- public params: any;
- dateTimeFormat: string = 'YYYY-MM-DD HH:mm';
- effectiveTill: string;
- workersList =  []
- public userprofileDetails:ProfileDetailsApi_Response;
- @ViewChild('model') public Model: ModalDirective;
+  public params: any;
+  dateTimeFormat: string = 'YYYY-MM-DD HH:mm';
+  effectiveTill: string;
+  workersList = []
+  public userprofileDetails: ProfileDetailsApi_Response;
+  @ViewChild('model') public Model: ModalDirective;
   constructor(private managerService: ManagerService,
     private _auth: AuthServiceService) { }
 
   ngOnInit(): void {
-    if(this._auth.getToken){
+    let effectiveDate = moment().utcOffset(environment.UTC).format('DD:MM:YYYY');
+    this.params = {
+      'effective_till': effectiveDate
+    }
+    if (this._auth.getToken) {
       this._auth.getProfileDetails().subscribe((res) => {
-       this.userprofileDetails = res
+        this.userprofileDetails = res
       })
     }
     this.managerService.getWorkersList().subscribe((res) => {
@@ -33,7 +37,7 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  addContact(){
+  addContact() {
 
   }
 
