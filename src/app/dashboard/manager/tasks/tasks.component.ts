@@ -89,6 +89,7 @@ export class TasksComponent implements OnInit {
     // converting datetime to 24 hrs format
     let selectedDateTime = moment(e.value).utcOffset(environment.UTC).format(this.dateTimeFormat);
     this.effectiveTill = selectedDateTime;
+    console.log(this.effectiveTill, e);
   };
 
 }
