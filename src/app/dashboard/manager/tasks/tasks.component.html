@@ -459,7 +459,7 @@
             type="button"
             [disabled]="documents <= 0"
             class="btn btn-primary text-right"
-            (click)="downloadFiles(workerAttachments)"
+            (click)="downloadFiles()"
           >
             Download File   {{documents != 0 ?  documents : ''}}
           </button>

@@ -121,72 +121,18 @@ export class TasksComponent implements OnInit {
     this.workerAttachments = item.workerAttachments
     this.modelService.open(this.baseModal);
   }
-  downloadFiles(urls) {
-    const interval = setInterval(download, 300, urls);
-    function download() {
-      console.log(urls);
-      const url = urls.pop();
-      const a = document.createElement('a');
-      a.setAttribute('href', url);
-      a.setAttribute('download', '');
-      a.setAttribute('target', '_blank');
-      a.click();
-      console.log(url);
-      if (urls.length === 0) {
-        clearInterval(interval);
+  downloadFiles() {
+    const link = document.createElement('a');
+     link.setAttribute('download', null);
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    for (var i = 0; i < this.workerAttachments.length; i++) {
+        link.setAttribute('href', `${this.fileUrl}/${this.workerAttachments[i]}`);
+        link.setAttribute('target', '_blank');
+        link.click();
       }
-    }
-    // console.log(urls)
-
-    // const link = document.createElement('a');
-    // link.setAttribute('download', null);
-    // link.style.display = 'none';
-
-
-    // document.body.appendChild(link);
-    // // urls.forEach((element) => {
-    //   console.log(element.index);
-    //   link.setAttribute('href', `${this.fileUrl}/${element.index}`);
-    //   link.click();
-    // });
-    // urls.forEach(element => {
-    //   link.setAttribute('href', `${this.fileUrl}/${element}`);
-    //   link.click();
-    // });
-
-    // for (var i = 0; i < urls.length; i++) {
-    //   link.setAttribute('href', `${this.fileUrl}/${urls[i]}`);
-    //   link.setAttribute('target', '_blank');
-    //   link.click();
-    // }
-
-    // document.body.removeChild(link);
-
-    // let data = ''
-    // let index: number = 0
-    // data = this.workerAttachments[index]
-
-
-    // var links = [ 'https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.exe',
-    //  'https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.dmg',
-    //   'https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar' ];
-    //    function downloadAll(urls) 
-
-    //     if(this.documents !=0){
-    //       for (var i = 0; i < this.workerAttachments.length; i++) {
-    //         this.downloadUri.push ( `${this.fileUrl}/${this.workerAttachments[i]}`)
-    //       }
-    //     //  this.documents = this.documents -1
-    //  index = index +1
-    // this.managerService.fileDownload(data).subscribe((res: any) => {
-
-    //   this.documents = this.documents -1
-    //   index = index +1
-    // },
-    // (error: HttpErrorResponse) => {
-    //   console.log(error)
-    //   errorAlert(error.message, error.statusText)
-    // })
+      document.body.removeChild(link);
+   
 
   }
 
