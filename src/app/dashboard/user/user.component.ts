@@ -29,7 +29,7 @@ export class UserComponent implements OnInit {
   dateTimeFormat: string = "YYYY-MM-DD HH:mm";
   effectiveTill: string;
   list = [];
-  searchvalue : any = { taskTitle: '' };
+  searchvalue: any = { taskTitle: '' };
   dropDown = [];
   @ViewChild("baseModal", { static: true })
   baseModal: TemplateRef<any>;
@@ -41,7 +41,7 @@ export class UserComponent implements OnInit {
     public _auth: AuthServiceService,
     private userService: UserService,
     private modelService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this._auth.getToken) {
@@ -75,7 +75,7 @@ export class UserComponent implements OnInit {
   submitTask(id) {
     console.log(id, this.comments);
   }
-  onClosePoup(){
+  onClosePoup() {
     this.comments = ''
     this.fileData = null
     this.fileName = []
@@ -98,7 +98,7 @@ export class UserComponent implements OnInit {
     formData.append("comments", this.comments);
     formData.append("taskId", this.Task._id);
     for (var i = 0; i < this.files.length; i++) {
-      formData.append(`file[${i}]`, this.files[i]);
+      formData.append('filename', this.files[i]);
     }
     this.fileData = formData;
   }
@@ -117,17 +117,17 @@ export class UserComponent implements OnInit {
 
 
   accepetTask(id: string) {
-    
+
     infoAlert().then((result) => {
       if (result.value) {
         const Data = {
           taskId: id,
         };
         this.userService.acceptTask(Data).subscribe((res) => {
-              if (res.status === 200) {
-                this.onChange(this.value);
-              }
-            },
+          if (res.status === 200) {
+            this.onChange(this.value);
+          }
+        },
           (error: HttpErrorResponse) => {
             errorAlert(error.error.message, error.statusText);
           }
