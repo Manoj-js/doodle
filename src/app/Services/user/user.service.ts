@@ -36,12 +36,11 @@ export class UserService {
       .get<any>(this.taskUrl + "/mytask/mycompleted/list", this.httpOptions)
       .pipe(map((res: Response) => res));
   }
-  submitTask(data): Observable<any> {
+  submitTask(data: FormData): Observable<any> {
     return this.http
       .post<any>(
         this.taskUrl + "/mytask/submit",
-        data,
-        this.httpOptions_formdata
+        data
       )
       .pipe(map((res: Response) => res));
   }
@@ -49,6 +48,11 @@ export class UserService {
   acceptTask(data): Observable<any> {
     return this.http
       .post<any>(this.taskUrl + "/mytask/accept", data)
+      .pipe(map((res: Response) => res));
+  }
+  UpdateProfile(data): Observable<any> {
+    return this.http
+      .put<any>(this.baseUrl + "/update/profile", data, this.httpOptions)
       .pipe(map((res: Response) => res));
   }
 }

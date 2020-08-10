@@ -112,7 +112,7 @@
     <div class="input-group">
       <input
         style="background-color: #e9ecef;"
-        placeholder="search..."
+        placeholder="search by Title"
         [(ngModel)]="searchvalue.taskTitle" 
         class="form-control py-2 rounded-pill"
         type="search"
@@ -347,7 +347,7 @@
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Worker:</label>
             <select class="form-control" formControlName="userId">
-              <option [selected]="true" [disabled]="true">Please select</option>
+              <option [selected]="true" value="null" [disabled]="true">Please select</option>
               <option *ngFor="let cont of dropDown" [value]="cont._id">
                 {{ cont.fullName }}</option
               >

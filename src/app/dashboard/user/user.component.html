@@ -22,7 +22,7 @@
           type="button"
           id="dropdownMenuButton"
           data-toggle="dropdown"
-          (click)="Profile.show()"
+          (click)="onUpdatePoup()"
           aria-haspopup="true"
           aria-expanded="false"
         >
@@ -31,81 +31,6 @@
         <button class="btn btn-primary" (click)="logout()">
         Logout
       </button>
-      </div>
-      <div>
-        <div
-          bsModal
-          #profile="bs-modal"
-          class="modal fade"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="myModalLabel"
-        >
-          <div class="modal-dialog modal-danger" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">Your Profile</h4>
-                <span class="text-right" *ngIf="!editMode">
-                  <button class="btn pl-2" (click)="onUpdate()">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                  </button>
-                </span>
-              </div>
-              <div class="modal-body">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div>
-                      <table class="table table-boderless">
-                        <tbody>
-                          <tr>
-                            <td class="text-left">Full Name</td>
-                            <td *ngIf="!editMode">
-                              {{ userprofileDetails?.data?.email }}
-                            </td>
-                            <td *ngIf="editMode">
-                              <div class="form-group">
-                                <input
-                                  type="text"
-                                  style="border: 2;"
-                                  placeholder="Enter password"
-                                  [(ngModel)]="fullName"
-                                  class="form-control"
-                                />
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left">Email</td>
-                            <td>{{ userprofileDetails?.data?.email }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  (click)="Profile.hide()"
-                  data-dismiss="modal"
-                >
-                  {{ editMode ? "Cancel" : "Okay" }}
-                </button>
-                <button
-                  *ngIf="editMode"
-                  type="button"
-                  class="btn btn-primary"
-                  (click)="OnSubmit()"
-                  data-dismiss="modal"
-                >
-                  Update
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -123,7 +48,7 @@
     <div class="input-group" style="max-width: 430px;" >
       <input
         style="background-color: #e9ecef;"
-        placeholder="search..."
+        placeholder="search by title"
         class="form-control py-2 rounded-pill"
         [(ngModel)]="searchvalue.taskTitle" 
         type="search"
@@ -137,7 +62,7 @@
       </span>
       <div class="text-right">
         <select
-          class="dropdown-select w-100 pl-2"
+          class="dropdown-select w-80 pl-2"
           [(ngModel)]="value"
           (change)="onChange($event.target.value)"
         >
@@ -146,6 +71,7 @@
           <option value="Approved">Approved</option>
         </select>
       </div>
+      
     </div>
   </div>
   <div class="card-body" style="padding: 10px;">
@@ -202,6 +128,7 @@
       </p>
     </div>
   </div>
+ 
   <div class="pull-right">
     <pagination-controls
       class="my-pagination"
@@ -328,6 +255,72 @@
             Submmit
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #updateModal let-c="close" let-d="dismiss">
+  <div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Your Profile</h4>
+        <span class="text-right" *ngIf="!editMode">
+          <button class="btn pl-2" (click)="onUpdate()">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+              <table class="table table-boderless">
+                <tbody>
+                  <tr>
+                    <td class="text-left">Full Name</td>
+                    <td *ngIf="!editMode">
+                      {{ userprofileDetails?.data?.fullName }}
+                    </td>
+                    <td *ngIf="editMode">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          style="border: 2;"
+                          placeholder="Enter password"
+                          [(ngModel)]="fullName"
+                          class="form-control"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">Email</td>
+                    <td>{{ userprofileDetails?.data?.email }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="cancelProfieUpdate()"
+          data-dismiss="modal"
+        >
+          {{ editMode ? "Cancel" : "Okay" }}
+        </button>
+        <button
+          *ngIf="editMode"
+          type="button"
+          class="btn btn-primary"
+          (click)="OnUpdateProfile()"
+          data-dismiss="modal"
+        >
+          Update
+        </button>
       </div>
     </div>
   </div>

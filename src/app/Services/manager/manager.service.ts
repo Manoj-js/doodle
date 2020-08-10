@@ -110,6 +110,16 @@ export class ManagerService {
       .post<any>(this.taskUrl + "/reject", data, this.httpOptions)
       .pipe(map((res: Response) => res));
   }
+  activateUSer(data): Observable<any> {
+    return this.http
+      .put<any>(this.baseUrl + "/active", data, this.httpOptions)
+      .pipe(map((res: Response) => res));
+  }
+  deactivateUSer(data): Observable<any> {
+    return this.http
+      .put<any>(this.baseUrl + "/deactive", data, this.httpOptions)
+      .pipe(map((res: Response) => res));
+  }
 
   fileDownload(data){
   

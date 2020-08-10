@@ -112,7 +112,7 @@
     <div class="input-group">
       <input
         style="background-color: #e9ecef;"
-        placeholder="search..."
+        placeholder="search by name"
         [(ngModel)]="searchvalue.fullName" 
         class="form-control py-2 rounded-pill"
         type="search"
@@ -151,7 +151,7 @@
             <td>
               <span style="max-width: 20px;">
                 <label class="toggle-switch">
-                  <input type="checkbox" class="switch-btn" [checked] = "item.fullName" />
+                  <input type="checkbox" class="switch-btn" [checked]= "item.status === 1" (click)=" handleStatus(item.fullName, item._id ,item.status) "/>
                   <span class="slider round"></span>
                 </label>
               </span>

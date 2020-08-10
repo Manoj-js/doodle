@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ManagerService } from 'src/app/Services/manager/manager.service';
 import { AuthServiceService } from 'src/app/Services/auth-service.service';
 import { ProfileDetailsApi_Response } from 'src/app/models/models';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-users',
@@ -34,11 +35,15 @@ export class UsersComponent implements OnInit {
         this.userprofileDetails = res
       })
     }
+    this.defaultList()
+   
+  }
+
+  defaultList(){
     this.managerService.getWorkersList().subscribe((res) => {
       this.workersList = res.data
     })
   }
-
   
 
   logout(){
@@ -50,5 +55,35 @@ export class UsersComponent implements OnInit {
     let selectedDateTime = moment(e.value).utcOffset(environment.UTC).format(this.dateTimeFormat);
     this.effectiveTill = selectedDateTime;
   };
+
+  handleStatus(name, id,status) {
+    let data = {
+      userId: id,
+    }
+    let statusText = status == 2 ? 'Activate' : 'Inactivate';
+    Swal.fire({
+      title: 'Are you sure want to ' + statusText + ' Worker"' + name + '"?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.value) {
+        if(status == 1){
+          this.managerService.deactivateUSer(data).subscribe((res) =>{
+            console.log(res)
+            this.defaultList()
+          })
+        } else{
+          this.managerService.activateUSer(data).subscribe((res) => {
+            console.log(res)
+            this.defaultList();
+          })
+        }
+      } 
+    })
+  }
+
 
 }

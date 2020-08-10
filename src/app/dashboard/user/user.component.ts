@@ -24,7 +24,7 @@ export class UserComponent implements OnInit {
   comments: string;
   onSubmit: boolean = false;
   public params: any;
-  files: string[] = [];
+  files: Array < File > = []
   fileName: string[] = [];
   dateTimeFormat: string = "YYYY-MM-DD HH:mm";
   effectiveTill: string;
@@ -33,6 +33,8 @@ export class UserComponent implements OnInit {
   dropDown = [];
   @ViewChild("baseModal", { static: true })
   baseModal: TemplateRef<any>;
+  @ViewChild("updateModal", { static: true })
+  updateModal: TemplateRef<any>;
   public userprofileDetails: ProfileDetailsApi_Response;
   @ViewChild("model") public Model: ModalDirective;
   @ViewChild("profile") public Profile: ModalDirective;
@@ -44,18 +46,21 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this._auth.getToken) {
-      this._auth.getProfileDetails().subscribe((res) => {
-        this.userprofileDetails = res;
-        this.fullName = this.userprofileDetails.data.fullName;
-      });
-    }
+    this.getProfileDetails()
     this.userService.getPendingList().subscribe((res) => {
       this.list = res.data;
       this.value = "Pending";
     });
   }
 
+  getProfileDetails(){
+    if (this._auth.getToken) {
+      this._auth.getProfileDetails().subscribe((res) => {
+        this.userprofileDetails = res;
+        this.fullName = this.userprofileDetails.data.fullName;
+      });
+    }
+  }
   logout() {
     this._auth.onLogout();
   }
@@ -66,15 +71,35 @@ export class UserComponent implements OnInit {
     this.modelService.open(this.baseModal);
   }
 
+  onUpdatePoup(){
+    this.modelService.open(this.updateModal)
+  }
   taskSubmit(item) {
     this.Task = item;
     this.onSubmit = true;
     this.modelService.open(this.baseModal);
   }
 
-  submitTask(id) {
-    console.log(id, this.comments);
+  OnUpdateProfile(){
+    const data ={
+      fullName: this.fullName
+    }
+    this.userService.UpdateProfile(data).subscribe((res) => {
+      if(res.status == 200){
+        this.modelService.dismissAll()
+        this.getProfileDetails()
+        this.editMode = false
+
+      }
+    })
   }
+ 
+  cancelProfieUpdate(){
+    this.editMode = false
+    this.modelService.dismissAll()
+  }
+
+
   onClosePoup(){
     this.comments = ''
     this.fileData = null
@@ -98,8 +123,9 @@ export class UserComponent implements OnInit {
     formData.append("comments", this.comments);
     formData.append("taskId", this.Task._id);
     for (var i = 0; i < this.files.length; i++) {
-      formData.append(`file[${i}]`, this.files[i]);
+      formData.append(`attachments[]`, this.files[i], this.files[i].name);
     }
+
     this.fileData = formData;
   }
 
