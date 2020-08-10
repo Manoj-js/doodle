@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand ml-3" routerLink="/contact">DoodleBlue</a>
+    <a class="navbar-brand ml-3" >DoodleBlue</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -10,12 +10,15 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon" (click)="isShown = !isShown"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-      </ul>
+    <div
+      class="collapse navbar-collapse"
+      [ngClass]="{ show: isShown }"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav mr-auto"></ul>
       <div class="dropdown">
         <button
           class="btn btn-primary dropdown-toggle"
@@ -29,37 +32,36 @@
           {{ userprofileDetails?.data?.fullName }}
         </button>
         <button class="btn btn-primary" (click)="logout()">
-        Logout
-      </button>
+          Logout
+        </button>
       </div>
     </div>
   </div>
 </nav>
 
 <div class="container pt-5">
-  <div style="padding: 15px; ">
+  <div style="padding: 15px;">
     <span>
       <h4>
-        <i class="fa fa-tasks" aria-hidden="true"></i> Welcome
+        <i class="fa fa-user" aria-hidden="true"></i> Welcome
         {{ userprofileDetails?.data?.fullName }}
       </h4>
     </span>
     <p>welcome to Task Portal</p>
-    <div class="input-group" style="max-width: 430px;" >
+    <div class="input-group" style="max-width: 430px;">
       <input
         style="background-color: #e9ecef;"
-        placeholder="search by title"
+        placeholder="Search By Title..."
         class="form-control py-2 rounded-pill"
-        [(ngModel)]="searchvalue.taskTitle" 
+        [(ngModel)]="searchvalue.taskTitle"
         type="search"
       />
-      <span class="input-group-append" >
+      <span class="input-group-append">
         <button class="btn rounded-pill border-0 ml-n5" type="button">
           <i class="fa fa-search"></i>
         </button>
       </span>
-      <span>
-      </span>
+      <span> </span>
       <div class="text-right">
         <select
           class="dropdown-select w-80 pl-2"
@@ -71,7 +73,6 @@
           <option value="Approved">Approved</option>
         </select>
       </div>
-      
     </div>
   </div>
   <div class="card-body" style="padding: 10px;">
@@ -90,7 +91,9 @@
         <tbody class="text-center">
           <tr
             *ngFor="
-              let item of list | paginate: { itemsPerPage: 5, currentPage: p } |filterBy: searchvalue 
+              let item of list
+                | paginate: { itemsPerPage: 5, currentPage: p }
+                | filterBy: searchvalue
             "
           >
             <td>
@@ -123,12 +126,15 @@
           </tr>
         </tbody>
       </table>
-      <p class="text-center align-items-center"*ngIf="(list | filterBy: searchvalue).length === 0">
+      <p
+        class="text-center align-items-center"
+        *ngIf="(list | filterBy: searchvalue).length === 0"
+      >
         <strong> No Task available</strong>
       </p>
     </div>
   </div>
- 
+
   <div class="pull-right">
     <pagination-controls
       class="my-pagination"
@@ -204,7 +210,7 @@
                   ></textarea>
                 </div>
                 <div class="row px-3 pt-2">
-                  <label class="w-100">Add File </label>
+                  <label class="w-100">Add File (images/docs or text)  </label>
                   <div class="form-group">
                     <div class="upload-btn-wrapper">
                       <button type="button" class="upload-btn">
@@ -212,7 +218,7 @@
                         Browse files to upload
                         <input
                           type="file"
-                          multiple
+                          accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf"
                           (change)="fileUpload($event)"
                         />
                       </button>

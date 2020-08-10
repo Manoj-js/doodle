@@ -11,3 +11,12 @@
 .modal-footer{
     border-top: 0;
 }
+
+.taskModel{
+    padding: 15px; 
+    max-width: 530px;
+}
+
+.card-body{
+    padding: 10px;
+}

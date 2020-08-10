@@ -16,7 +16,6 @@ import { Observable, throwError } from "rxjs";
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthServiceService,
-    private router: Router
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
@@ -26,22 +25,28 @@ export class AuthInterceptor implements HttpInterceptor {
         headers: req.headers.set("x-access-token", authToken),
       });
       return next.handle(authRequest).pipe(
-        catchError((error) => {
+        catchError((error:HttpErrorResponse) => {
           if (error instanceof HttpErrorResponse && error.status === 401) {
-            return this.logoutAndRedirect(error);
+            this.authService.onLogout();
+            return throwError(error);
           } else {
             return throwError(error);
           }
         })
       );
     } else {
-      return next.handle(req);
+      return next.handle(req).pipe(
+        catchError((error:HttpErrorResponse) => {
+          if (error instanceof HttpErrorResponse && error.status === 401) {
+            this.authService.onLogout();
+            return throwError(error);
+          } else {
+            return throwError(error);
+          }
+        })
+      );
     }
   }
 
-  private logoutAndRedirect(err): Observable<HttpEvent<any>> {
-    this.authService.onLogout();
-    this.router.navigateByUrl("/login");
-    return throwError(err);
-  }
+
 }

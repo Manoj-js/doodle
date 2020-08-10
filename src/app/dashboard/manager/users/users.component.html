@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand ml-3" routerLink="/contact">DoodleBlue</a>
+    <a class="navbar-brand ml-3" >DoodleBlue</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -10,10 +10,14 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon" (click)="isShown = !isShown" ></span>
+      <span class="navbar-toggler-icon" (click)="isShown = !isShown"></span>
     </button>
 
-    <div class="collapse navbar-collapse" [ngClass]="{ 'show': isShown }" id="navbarSupportedContent">
+    <div
+      class="collapse navbar-collapse"
+      [ngClass]="{ show: isShown }"
+      id="navbarSupportedContent"
+    >
       <ul class="navbar-nav mr-auto">
         <li>
           <a
@@ -101,7 +105,7 @@
 </nav>
 
 <div class="container pt-5">
-  <div style="padding: 15px; max-width: 330px;">
+  <div  class="taskModel">
     <span>
       <h4>
         <i class="fa fa-tasks" aria-hidden="true"></i> Welcome
@@ -112,8 +116,8 @@
     <div class="input-group">
       <input
         style="background-color: #e9ecef;"
-        placeholder="search by name"
-        [(ngModel)]="searchvalue.fullName" 
+        placeholder="Search By Name..."
+        [(ngModel)]="searchvalue.fullName"
         class="form-control py-2 rounded-pill"
         type="search"
       />
@@ -124,7 +128,7 @@
       </span>
     </div>
   </div>
-  <div class="card-body" style="padding: 10px;">
+  <div class="card-body" >
     <div class="table-responsive table-body">
       <table class="table table-bordered table-hover table-md">
         <thead class="thead-light" style="text-align: center;">
@@ -138,7 +142,8 @@
           <tr
             *ngFor="
               let item of workersList
-                | paginate: { itemsPerPage: 2, currentPage: p } |filterBy: searchvalue 
+                | paginate: { itemsPerPage: 2, currentPage: p }
+                | filterBy: searchvalue
             "
           >
             <td>
@@ -151,7 +156,12 @@
             <td>
               <span style="max-width: 20px;">
                 <label class="toggle-switch">
-                  <input type="checkbox" class="switch-btn" [checked]= "item.status === 1" (click)=" handleStatus(item.fullName, item._id ,item.status) "/>
+                  <input
+                    type="checkbox"
+                    class="switch-btn"
+                    [checked]="item.status === 1"
+                    (click)="handleStatus(item.fullName, item._id, item.status)"
+                  />
                   <span class="slider round"></span>
                 </label>
               </span>
@@ -174,4 +184,3 @@
     ></pagination-controls>
   </div>
 </div>
-

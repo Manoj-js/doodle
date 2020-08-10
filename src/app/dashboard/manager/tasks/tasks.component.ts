@@ -14,7 +14,7 @@ import {
   errorAlert,
 } from "src/app/shared/sweetalert/sweetalert";
 import { HttpErrorResponse } from "@angular/common/http";
-import { saveAs } from 'file-saver';
+import { saveAs } from "file-saver";
 @Component({
   selector: "app-tasks",
   templateUrl: "./tasks.component.html",
@@ -28,18 +28,17 @@ export class TasksComponent implements OnInit {
   effectiveTill: string;
   list = [];
   dropDown = [];
-  documents: number
-  searchvalue: any = { taskTitle: '' };
-  comments: string;
+  documents: number;
+  searchvalue: any = { taskTitle: "" };
+  comments: string = "test"
   value: string;
   editMode: boolean = false;
   taskFormGroup: FormGroup;
   addMode: boolean = false;
   taskReview: boolean = false;
   taskReviewValue: string;
-  downloadUri = []
+  downloadUri = [];
   public userprofileDetails: ProfileDetailsApi_Response;
-  @ViewChild("model") public Model: ModalDirective;
   @ViewChild("profile") public Profile: ModalDirective;
   @ViewChild("gtModal", { static: true })
   gtModal: TemplateRef<any>;
@@ -49,14 +48,14 @@ export class TasksComponent implements OnInit {
   addModel: TemplateRef<any>;
   effectiveDate;
   isShown: boolean = false;
-  workerAttachments = []
+  workerAttachments = [];
   fileUrl = environment.fileUrl;
   constructor(
     public _auth: AuthServiceService,
     private managerService: ManagerService,
     private modelService: NgbModal,
     public formBuilder: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -115,29 +114,25 @@ export class TasksComponent implements OnInit {
     this.modelService.open(this.addModel);
   }
   onReview(item) {
-    console.log(item);
     this.Task = item;
-    this.documents = item.workerAttachments.length
-    this.workerAttachments = item.workerAttachments
+    this.documents = item.workerAttachments.length;
+    this.workerAttachments = item.workerAttachments;
     this.modelService.open(this.baseModal);
   }
   downloadFiles() {
-    const link = document.createElement('a');
-     link.setAttribute('download', null);
-    link.style.display = 'none';
+    const link = document.createElement("a");
+    link.setAttribute("download", null);
+    link.style.display = "none";
     document.body.appendChild(link);
     for (var i = 0; i < this.workerAttachments.length; i++) {
-        link.setAttribute('href', `${this.fileUrl}/${this.workerAttachments[i]}`);
-        link.setAttribute('target', '_blank');
-        link.click();
-      }
-      document.body.removeChild(link);
-   
-
+      link.setAttribute("href", `${this.fileUrl}/${this.workerAttachments[i]}`);
+      link.setAttribute("target", "_blank");
+      link.click();
+    }
+    document.body.removeChild(link);
   }
 
   onDelete(id: string) {
-    console.log(id);
     deleteAlert().then((result) => {
       if (result.value) {
         const Data = {
@@ -207,7 +202,7 @@ export class TasksComponent implements OnInit {
   ModelPopup(item) {
     this.Task = item;
     this.params = {
-      effective_till: item.taskExpiryAt,
+      effective_till: new Date(item.taskExpiryAt),
     };
 
     this.taskFormGroup.patchValue({
@@ -304,6 +299,11 @@ export class TasksComponent implements OnInit {
     this.taskReviewValue = "approve";
   }
 
+  closeReviewPoup(){
+  this.taskReview = false
+  this.modelService.dismissAll()
+  }
+
   rejectReview() {
     this.taskReview = true;
     this.taskReviewValue = "reject";
@@ -319,6 +319,7 @@ export class TasksComponent implements OnInit {
         (res) => {
           if (res.status === 200) {
             successAlert(res.message);
+            this.taskReview = false
             this.onChange(this.value);
             this.modelService.dismissAll();
           }
@@ -332,6 +333,7 @@ export class TasksComponent implements OnInit {
         (res) => {
           if (res.status === 200) {
             successAlert(res.message);
+            this.taskReview = false
             this.onChange(this.value);
             this.modelService.dismissAll();
           }

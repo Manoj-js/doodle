@@ -50,11 +50,7 @@ export class AuthServiceService {
         map((data) => data as ProfileDetailsApi_Response)
       );
   }
-  UpdateProfileDetails(data) {
-    return this.http
-      .put(this.baseUrl + "/update/profile", data, this.httpOptions)
-      .pipe(map((res: Response) => res));
-  }
+ 
 
   storeAuthToken(token) {
     localStorage.setItem("token", token);

@@ -23,55 +23,36 @@ export class ManagerService {
     }),
     responseType: "blob" as "json",
   };
-  constructor(private http: HttpClient,
-    private handler: HttpBackend) {}
+  constructor(private http: HttpClient, private handler: HttpBackend) {}
 
   getAssignedList(): Observable<any> {
     return this.http
-      .get<any>(
-        this.taskUrl + "/assigned/list",
-        this.httpOptions
-      )
+      .get<any>(this.taskUrl + "/assigned/list", this.httpOptions)
       .pipe(map((res: Response) => res));
   }
   getApprovedList(): Observable<any> {
     return this.http
-      .get<any>(
-        this.taskUrl + "/approved/list",
-        this.httpOptions
-      )
+      .get<any>(this.taskUrl + "/approved/list", this.httpOptions)
       .pipe(map((res: Response) => res));
   }
   getRejectedList(): Observable<any> {
     return this.http
-      .get<any>(
-        this.taskUrl + "/rejected/list",
-        this.httpOptions
-      )
+      .get<any>(this.taskUrl + "/rejected/list", this.httpOptions)
       .pipe(map((res: Response) => res));
   }
   getCompletedList(): Observable<any> {
     return this.http
-      .get<any>(
-        this.taskUrl + "/completed/list",
-        this.httpOptions
-      )
+      .get<any>(this.taskUrl + "/completed/list", this.httpOptions)
       .pipe(map((res: Response) => res));
   }
   getAcceptedList(): Observable<any> {
     return this.http
-      .get<any>(
-        this.taskUrl + "/accepted/list",
-        this.httpOptions
-      )
+      .get<any>(this.taskUrl + "/accepted/list", this.httpOptions)
       .pipe(map((res: Response) => res));
   }
   getWorkersList(): Observable<any> {
     return this.http
-      .get<any>(
-        this.baseUrl + "/workers/list",
-        this.httpOptions
-      )
+      .get<any>(this.baseUrl + "/workers/list", this.httpOptions)
       .pipe(map((res: Response) => res));
   }
   addTask(data): Observable<any> {
@@ -121,12 +102,7 @@ export class ManagerService {
       .pipe(map((res: Response) => res));
   }
 
-  fileDownload(data){
-  
-    return `${this.fileUrl}/${data}` 
-    
-    
+  fileDownload(data) {
+    return `${this.fileUrl}/${data}`;
   }
-
 }
-

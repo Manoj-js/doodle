@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand ml-3" routerLink="/contact">DoodleBlue</a>
+    <a class="navbar-brand ml-3" >DoodleBlue</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -13,7 +13,11 @@
       <span class="navbar-toggler-icon" (click)="isShown = !isShown"></span>
     </button>
 
-    <div class="collapse navbar-collapse" [ngClass]="{ 'show': isShown }"  id="navbarSupportedContent">
+    <div
+      class="collapse navbar-collapse"
+      [ngClass]="{ show: isShown }"
+      id="navbarSupportedContent"
+    >
       <ul class="navbar-nav mr-auto">
         <li>
           <a
@@ -101,7 +105,7 @@
 </nav>
 
 <div class="container pt-5">
-  <div style="padding: 15px; max-width: 530px;">
+  <div class="taskModel" >
     <span>
       <h4>
         <i class="fa fa-tasks" aria-hidden="true"></i> Welcome
@@ -112,8 +116,8 @@
     <div class="input-group">
       <input
         style="background-color: #e9ecef;"
-        placeholder="search by Title"
-        [(ngModel)]="searchvalue.taskTitle" 
+        placeholder="Search By Title..."
+        [(ngModel)]="searchvalue.taskTitle"
         class="form-control py-2 rounded-pill"
         type="search"
       />
@@ -146,7 +150,7 @@
       </div>
     </div>
   </div>
-  <div class="card-body" style="padding: 10px;">
+  <div class="card-body" >
     <div class="table-responsive table-body">
       <table class="table table-bordered table-hover table-md">
         <thead class="thead-light" style="text-align: center;">
@@ -163,7 +167,9 @@
         <tbody class="text-center">
           <tr
             *ngFor="
-              let item of list | paginate: { itemsPerPage: 10, currentPage: p } |filterBy: searchvalue 
+              let item of list
+                | paginate: { itemsPerPage: 10, currentPage: p }
+                | filterBy: searchvalue
             "
           >
             <td>
@@ -197,7 +203,10 @@
           </tr>
         </tbody>
       </table>
-      <p class="text-center align-items-center" *ngIf="(list | filterBy: searchvalue).length === 0">
+      <p
+        class="text-center align-items-center"
+        *ngIf="(list | filterBy: searchvalue).length === 0"
+      >
         <strong> No Task available</strong>
       </p>
     </div>
@@ -347,7 +356,9 @@
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Worker:</label>
             <select class="form-control" formControlName="userId">
-              <option [selected]="true" value="null" [disabled]="true">Please select</option>
+              <option [selected]="true" value="null" [disabled]="true"
+                >Please select</option
+              >
               <option *ngFor="let cont of dropDown" [value]="cont._id">
                 {{ cont.fullName }}</option
               >
@@ -369,7 +380,7 @@
             type="button"
             class="btn btn-secondary"
             data-dismiss="modal"
-            (click)="onClosePopup()"
+            (click)="d('asdasd')"
           >
             Close
           </button>
@@ -388,7 +399,7 @@
       <div class="modal-header">
         <h4 class="modal-title">Task Details</h4>
         <span class="text-right">
-          <button class="btn pl-2" (click)="d('cross link')">
+          <button class="btn pl-2" (click)="closeReviewPoup()">
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
         </span>
@@ -461,7 +472,7 @@
             class="btn btn-primary text-right"
             (click)="downloadFiles()"
           >
-            Download File   {{documents != 0 ?  documents : ''}}
+            Download File
           </button>
           <button
             *ngIf="!taskReview"

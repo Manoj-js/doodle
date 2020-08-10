@@ -38,10 +38,7 @@ export class UserService {
   }
   submitTask(data: FormData): Observable<any> {
     return this.http
-      .post<any>(
-        this.taskUrl + "/mytask/submit",
-        data
-      )
+      .post<any>(this.taskUrl + "/mytask/submit", data)
       .pipe(map((res: Response) => res));
   }
 

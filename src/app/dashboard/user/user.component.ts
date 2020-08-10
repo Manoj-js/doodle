@@ -7,8 +7,12 @@ import * as moment from "moment";
 import { environment } from "src/environments/environment";
 import { UserService } from "src/app/Services/user/user.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { successAlert, infoAlert, errorAlert } from "src/app/shared/sweetalert/sweetalert";
-import { HttpErrorResponse } from '@angular/common/http';
+import {
+  successAlert,
+  infoAlert,
+  errorAlert,
+} from "src/app/shared/sweetalert/sweetalert";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: "app-user",
@@ -24,12 +28,13 @@ export class UserComponent implements OnInit {
   comments: string;
   onSubmit: boolean = false;
   public params: any;
-  files: Array < File > = []
+  files: Array<File> = [];
   fileName: string[] = [];
   dateTimeFormat: string = "YYYY-MM-DD HH:mm";
   effectiveTill: string;
   list = [];
-  searchvalue: any = { taskTitle: '' };
+  isShown: boolean = false;
+  searchvalue: any = { taskTitle: "" };
   dropDown = [];
   @ViewChild("baseModal", { static: true })
   baseModal: TemplateRef<any>;
@@ -43,21 +48,27 @@ export class UserComponent implements OnInit {
     public _auth: AuthServiceService,
     private userService: UserService,
     private modelService: NgbModal
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.getProfileDetails()
+    this.getProfileDetails();
     this.userService.getPendingList().subscribe((res) => {
       this.list = res.data;
       this.value = "Pending";
+    },
+    (error: HttpErrorResponse) => {
+      errorAlert(error.error.message, error.statusText);
     });
   }
 
-  getProfileDetails(){
+  getProfileDetails() {
     if (this._auth.getToken) {
       this._auth.getProfileDetails().subscribe((res) => {
         this.userprofileDetails = res;
         this.fullName = this.userprofileDetails.data.fullName;
+      },
+      (error: HttpErrorResponse) => {
+        errorAlert(error.error.message, error.statusText);
       });
     }
   }
@@ -71,8 +82,8 @@ export class UserComponent implements OnInit {
     this.modelService.open(this.baseModal);
   }
 
-  onUpdatePoup(){
-    this.modelService.open(this.updateModal)
+  onUpdatePoup() {
+    this.modelService.open(this.updateModal);
   }
   taskSubmit(item) {
     this.Task = item;
@@ -80,31 +91,32 @@ export class UserComponent implements OnInit {
     this.modelService.open(this.baseModal);
   }
 
-  OnUpdateProfile(){
-    const data ={
-      fullName: this.fullName
-    }
+  OnUpdateProfile() {
+    const data = {
+      fullName: this.fullName,
+    };
     this.userService.UpdateProfile(data).subscribe((res) => {
-      if(res.status == 200){
-        this.modelService.dismissAll()
-        this.getProfileDetails()
-        this.editMode = false
-
+      if (res.status == 200) {
+        this.modelService.dismissAll();
+        this.getProfileDetails();
+        this.editMode = false;
       }
-    })
-  }
- 
-  cancelProfieUpdate(){
-    this.editMode = false
-    this.modelService.dismissAll()
+    },
+    (error: HttpErrorResponse) => {
+      errorAlert(error.error.message, error.statusText);
+    });
   }
 
+  cancelProfieUpdate() {
+    this.editMode = false;
+    this.modelService.dismissAll();
+  }
 
-  onClosePoup(){
-    this.comments = ''
-    this.fileData = null
-    this.fileName = []
-    this.modelService.dismissAll()
+  onClosePoup() {
+    this.comments = "";
+    this.fileData = null;
+    this.fileName = [];
+    this.modelService.dismissAll();
   }
 
   onUpdate() {
@@ -123,7 +135,7 @@ export class UserComponent implements OnInit {
     formData.append("comments", this.comments);
     formData.append("taskId", this.Task._id);
     for (var i = 0; i < this.files.length; i++) {
-      formData.append(`attachments[]`, this.files[i], this.files[i].name);
+      formData.append(`attachments`, this.files[0], this.files[0].name);
     }
 
     this.fileData = formData;
@@ -135,25 +147,27 @@ export class UserComponent implements OnInit {
         if (res.status === 200) {
           this.onChange(this.value);
           successAlert(res.message);
-          this.modelService.dismissAll();
+         this.onClosePoup();
         }
+      },
+      (error: HttpErrorResponse) => {
+        errorAlert(error.error.message, error.statusText);
       });
     }
   }
 
-
   accepetTask(id: string) {
-
     infoAlert().then((result) => {
       if (result.value) {
         const Data = {
           taskId: id,
         };
-        this.userService.acceptTask(Data).subscribe((res) => {
-          if (res.status === 200) {
-            this.onChange(this.value);
-          }
-        },
+        this.userService.acceptTask(Data).subscribe(
+          (res) => {
+            if (res.status === 200) {
+              this.onChange(this.value);
+            }
+          },
           (error: HttpErrorResponse) => {
             errorAlert(error.error.message, error.statusText);
           }
@@ -169,6 +183,9 @@ export class UserComponent implements OnInit {
           this.list = res.data;
           console.log(res);
           this.value = "Completed";
+        },
+        (error: HttpErrorResponse) => {
+          errorAlert(error.error.message, error.statusText);
         });
         break;
       }
@@ -176,6 +193,9 @@ export class UserComponent implements OnInit {
         this.userService.getPendingList().subscribe((res) => {
           this.list = res.data;
           this.value = "Pending";
+        },
+        (error: HttpErrorResponse) => {
+          errorAlert(error.error.message, error.statusText);
         });
         break;
       }
@@ -183,6 +203,9 @@ export class UserComponent implements OnInit {
         this.userService.getApprovedList().subscribe((res) => {
           this.list = res.data;
           this.value = "Approved";
+        },
+        (error: HttpErrorResponse) => {
+          errorAlert(error.error.message, error.statusText);
         });
         break;
       }
@@ -190,6 +213,9 @@ export class UserComponent implements OnInit {
       default: {
         this.userService.getCompletedList().subscribe((res) => {
           this.list = res.data;
+        },
+        (error: HttpErrorResponse) => {
+          errorAlert(error.error.message, error.statusText);
         });
       }
     }

@@ -1,43 +1,100 @@
 <div class="app-body">
   <main class="main d-flex align-items-center">
-    <div class="container" style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div
+      class="container"
+     
+    >
       <div class="row" style="box-shadow: 0 0 20px #a5acb9;">
-        <div class="col-md-12 " style="min-width: 800px; padding: 0; ">
+        <div class="col-md-12" style="min-width: 800px; padding: 0;">
           <div class="card-group">
             <div class="card p-3">
               <div class="card-body">
-                <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" >
-                  <h4 class="text-center" > {{isManagerLogin? 'Manger' : 'User'}} Login</h4>
+                <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+                  <h4 class="text-center">
+                    {{ isManagerLogin ? "Manger" : "User" }} Login
+                  </h4>
                   <p class="text-muted text-center">Sign in to your account</p>
                   <div class="form-group input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                      <span class="input-group-text"
+                        ><i class="fa fa-envelope"></i
+                      ></span>
                     </div>
-                    <input type="email" placeholder=" Email Address" tabindex="1" style=" border: 2;"  formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                        <div *ngIf="f.email.errors.required">Email is required</div>
-                        <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
-                    </div>
-                </div>
-                  <div class="form-group input-group mb-3 " >
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fa fa-asterisk"></i></span>
-                    </div>
-                    <input  type="password"  style=" border: 2;"  tabindex="2" placeholder="Enter password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                        <div *ngIf="f.password.errors.required">Password is required</div>
-                        <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-                    </div>
-                </div>
-                  <div class="form-group row">
-                    <div class="col-6">
-                    <button tabindex="3" style="margin:2px; padding:5px 30px 5px 30px;" class="btn btn-primary mr-1">Login</button>
-                    </div>
-                    <div class="col-6 text-right">
-                      <button  type="button" style="margin:2px; padding:5px 30px 5px 30px; text-decoration: none;" class="btn btn-link px-0" (click)="loginSwitch()" > Switch to {{isManagerLogin? 'User' : 'Manager'}}  </button>
+                    <input
+                      type="email"
+                      placeholder=" Email Address"
+                      tabindex="1"
+                      style="border: 2;"
+                      formControlName="email"
+                      class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                    />
+                    <div
+                      *ngIf="submitted && f.email.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.email.errors.required">
+                        Email is required
+                      </div>
+                      <div *ngIf="f.email.errors.email">
+                        Email must be a valid email address
+                      </div>
                     </div>
                   </div>
-
+                  <div class="form-group input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fa fa-asterisk"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="password"
+                      style="border: 2;"
+                      tabindex="2"
+                      placeholder="Enter password"
+                      formControlName="password"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.password.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && f.password.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.password.errors.required">
+                        Password is required
+                      </div>
+                      <div *ngIf="f.password.errors.minlength">
+                        Password must be at least 6 characters
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-6">
+                      <button
+                        tabindex="3"
+                        style="margin: 2px; padding: 5px 30px 5px 30px;"
+                        class="btn btn-primary mr-1"
+                      >
+                        Login
+                      </button>
+                    </div>
+                    <div class="col-6 text-right">
+                      <button
+                        type="button"
+                        style="
+                          margin: 2px;
+                          padding: 5px 30px 5px 30px;
+                          text-decoration: none;
+                        "
+                        class="btn btn-link px-0"
+                        (click)="loginSwitch()"
+                      >
+                        Switch to {{ isManagerLogin ? "User" : "Manager" }}
+                      </button>
+                    </div>
+                  </div>
                 </form>
               </div>
             </div>
@@ -45,8 +102,18 @@
               <div class="card-body text-center">
                 <div>
                   <h2>Sign up</h2>
-                  <p>To create an account as {{isManagerLogin? 'Manager' : 'User'}}</p>
-                  <button style="padding:5px 40px 5px 40px;" type="button" (click)="onRegister()"  class="btn btn-primary active mt-3">Register Now!</button>
+                  <p>
+                    To create an account as
+                    {{ isManagerLogin ? "Manager" : "User" }}
+                  </p>
+                  <button
+                    style="padding: 5px 40px 5px 40px;"
+                    type="button"
+                    (click)="onRegister()"
+                    class="btn btn-primary active mt-3"
+                  >
+                    Register Now!
+                  </button>
                 </div>
               </div>
             </div>
