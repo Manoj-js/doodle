@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
       if(res.data.userType === 1){
         this._router.navigateByUrl('/dashboard/manager/tasks')
       } else {
-        this._router.navigateByUrl('/dashboard/user')
+        this._router.navigateByUrl('/dashboard/user/tasks')
       }
 
     }

@@ -1,6 +1,23 @@
-.date-time-div span{
-  border-radius:5px;
-  background-color:#E9EDF4;
-  color:#3E4B5B;
-  border-color:transparent !important;
+.date-time-div span {
+  border-radius: 5px;
+  background-color: #E9EDF4;
+  color: #3E4B5B;
+  border-color: transparent !important;
+}
+
+
+.e-input-group-icon .e-date-icon .e-icons {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+
+.e-input-group-icon .e-time-icon .e-icons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.e-input-group .e-control-wrapper .e-datetime-wrapper .e-valid-input .e-non-edit {
+  padding: 5px 10px;
 }

@@ -12,15 +12,46 @@
 @import '../node_modules/@syncfusion/ej2-angular-calendars/styles/material.css';
 
 .route-effective-calendar .date-time-div span {
-  background-color: #ed2b94 !important;
+  /* background-color: #ed2b94 !important; */
   color           : #fff !important;
+  
 }
 
 .route-effective-calendar .date-time-div span input::placeholder {
   color: #fff !important;
 }
 
+/* .e-input-group-icon .e-date-icon .e-icons{
+  
+}
+.e-input-group-icon .e-time-icon .e-icons{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.e-input-group .e-control-wrapper .e-datetime-wrapper .e-valid-input .e-non-edit{
+  padding: 5px 10px;
+} */
 
+.e-datetime-wrapper .e-input-group-icon.e-time-icon{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.e-input-group .e-input-group-icon:not(:last-child), .e-input-group.e-control-wrapper .e-input-group-icon:not(:last-child){
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+.e-input-group:not(.e-float-icon-left), .e-input-group.e-success:not(.e-float-icon-left), .e-input-group.e-warning:not(.e-float-icon-left), .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-success:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-warning:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left){
+  padding: 5px 10px;
+}
+.e-datetime-wrapper .e-clear-icon{
+  padding-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 .dropdown-select {
   padding: 6px;
   outline: none;
@@ -30,4 +61,52 @@
   text-transform: none;
   margin-left: 5px;
     margin-top: 3px;
+}
+
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display : inline-block;
+}
+
+.upload-btn {
+  color           : #3e4b5b;
+  background-color: #e9edf4;
+  padding         : 8px 20px;
+  border-radius   : 5px;
+  border-color    : transparent;
+  min-width: 470px;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  position: absolute;
+  left    : 0;
+  top     : 0;
+  opacity : 0;
+}
+
+
+
+.my-pagination .ngx-pagination .current {
+  background-color: #007bff;
+}
+
+
+.navbar-collapse {
+  flex-basis: 100%;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.navbar-dark .navbar-nav .show > .nav-link, .navbar-dark .navbar-nav .active > .nav-link, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .nav-link.active {
+  color: #fff;
+  padding-left: 16px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.5);
+  padding-left: 16px;
 }

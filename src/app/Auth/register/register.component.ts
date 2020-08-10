@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
      if(this.registerType === 'manager'){
        this._auth.managerSignup(this.registerForm.value)
        .subscribe((res) => {
-        console.log(res)
+        this._router.navigateByUrl('/login')
        },
        (error: HttpErrorResponse) => {
         console.log(error);
@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit {
      } else{
        this._auth.workerSignup(this.registerForm.value)
        .subscribe((res) => {
-         console.log(res)
+        this._router.navigateByUrl('/login')
        },
        (error: HttpErrorResponse) => {
         console.log(error);

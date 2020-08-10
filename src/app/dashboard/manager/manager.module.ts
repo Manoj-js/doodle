@@ -8,7 +8,8 @@ import { TasksComponent } from './tasks/tasks.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { DateTimePickerComponent } from '../../shared/date-time-picker/date-time';
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 @NgModule({
   imports: [
    CommonModule,
@@ -16,7 +17,9 @@ import { DateTimePickerComponent } from '../../shared/date-time-picker/date-time
    ReactiveFormsModule,
   ManagerRoutingModule,
   ModalModule.forRoot(),
-  DateTimePickerModule
+  DateTimePickerModule,
+  NgxPaginationModule,
+  FilterPipeModule
   ],
   declarations: [
   UsersComponent,

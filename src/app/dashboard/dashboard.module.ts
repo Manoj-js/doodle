@@ -2,11 +2,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserComponent } from './user/user.component';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { DashboardRoutingModule } from './dashboard.routing';
 import { ManagerModule } from './manager/manager.module';
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { UserModule } from './user/user.module';
 
 
 @NgModule({
@@ -15,10 +15,12 @@ import { ManagerModule } from './manager/manager.module';
    FormsModule,
    ReactiveFormsModule,
    DashboardRoutingModule,
-   ManagerModule
+   ManagerModule,
+   ModalModule.forRoot(),
+   NgxPaginationModule,
+   UserModule
   ],
   declarations: [
-   UserComponent,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })

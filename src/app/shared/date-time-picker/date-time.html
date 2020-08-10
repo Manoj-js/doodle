@@ -1,3 +1,14 @@
-<ejs-datetimepicker id='datetimepicker'  class="date-time-div" [(ngModel)]="selected" (blur)="onFocusOut($event)" [allowEdit]="false"
- placeholder='DD/MM/YYYY | HH:MM AM' [format]='calendarFormat' [step]='interval' (change)="change($event)"></ejs-datetimepicker>
- <span class="text-danger pl-1 f-12" *ngIf="!isValidDateTime">Invalid datetime or format</span>
+<ejs-datetimepicker
+  id="datetimepicker"
+  class="date-time-div"
+  [(ngModel)]="selected"
+  (blur)="onFocusOut($event)"
+  [allowEdit]="false"
+  placeholder="DD/MM/YYYY | HH:MM AM"
+  [format]="calendarFormat"
+  [step]="interval"
+  (change)="change($event)"
+></ejs-datetimepicker>
+<span class="text-danger pl-1 f-12" *ngIf="!isValidDateTime"
+  >Invalid datetime or format</span
+>

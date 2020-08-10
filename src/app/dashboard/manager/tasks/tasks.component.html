@@ -1,32 +1,62 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
     <a class="navbar-brand ml-3" routerLink="/contact">DoodleBlue</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon" (click)="isShown = !isShown"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" [ngClass]="{ 'show': isShown }"  id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li>
-          <a class="nav-link " [routerLink]="['/dashboard/manager/tasks']"
-            routerLinkActive="router-link-active">Tasks</a>
+          <a
+            class="nav-link"
+            [routerLink]="['/dashboard/manager/tasks']"
+            routerLinkActive="active"
+            >Tasks</a
+          >
         </li>
         <li>
-          <a class="nav-link " [routerLink]="['/dashboard/manager/users']"
-            routerLinkActive="router-link-active">Users</a>
+          <a
+            class="nav-link"
+            [routerLink]="['/dashboard/manager/users']"
+            routerLinkActive="active"
+            >Users</a
+          >
         </li>
-
       </ul>
       <div class="dropdown">
-        <button class="btn btn-primary  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-          (click)="Profile.show()" aria-haspopup="true" aria-expanded="false">
-          {{userprofileDetails?.data.fullName}}
+        <button
+          class="btn btn-primary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          (click)="Profile.show()"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          {{ userprofileDetails?.data.fullName }}
         </button>
       </div>
+      <button class="btn btn-primary" (click)="logout()">
+        Logout
+      </button>
       <div>
-
-        <div bsModal #profile="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div
+          bsModal
+          #profile="bs-modal"
+          class="modal fade"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="myModalLabel"
+        >
           <div class="modal-dialog modal-danger" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -36,17 +66,16 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div>
-                      <table class="table table-boderless">
+                      <table class="table table-borderless">
                         <tbody>
                           <tr>
                             <td class="text-left">Full Name</td>
-                            <td>{{userprofileDetails?.data.fullName}}</td>
+                            <td>{{ userprofileDetails?.data.fullName }}</td>
                           </tr>
                           <tr>
                             <td class="text-left">Email</td>
-                            <td>{{userprofileDetails?.data.email}}</td>
+                            <td>{{ userprofileDetails?.data.email }}</td>
                           </tr>
-
                         </tbody>
                       </table>
                     </div>
@@ -54,7 +83,12 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="Profile.hide()" data-dismiss="modal">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="Profile.hide()"
+                  data-dismiss="modal"
+                >
                   Okay
                 </button>
               </div>
@@ -69,160 +103,403 @@
 <div class="container pt-5">
   <div style="padding: 15px; max-width: 530px;">
     <span>
-      <h4><i class="fa fa-tasks" aria-hidden="true"></i> Welcome {{userprofileDetails?.data.fullName}}</h4>
+      <h4>
+        <i class="fa fa-tasks" aria-hidden="true"></i> Welcome
+        {{ userprofileDetails?.data.fullName }}
+      </h4>
     </span>
     <p>welcome to Task Portal</p>
     <div class="input-group">
-      <input style="background-color: #e9ecef;" placeholder="search..." class="form-control py-2 rounded-pill"
-        type="search" />
+      <input
+        style="background-color: #e9ecef;"
+        placeholder="search..."
+        [(ngModel)]="searchvalue.taskTitle" 
+        class="form-control py-2 rounded-pill"
+        type="search"
+      />
       <span class="input-group-append">
         <button class="btn rounded-pill border-0 ml-n5" type="button">
           <i class="fa fa-search"></i>
         </button>
       </span>
       <span>
-        <button style="border-radius: 6px;" class="btn btn-primary ml-2" (click)="Model.show()">
+        <button
+          style="border-radius: 6px;"
+          class="btn btn-primary ml-2"
+          (click)="onAddTask()"
+        >
           <i class="fa fa-plus" aria-hidden="true"></i> Add Task
         </button>
       </span>
       <div class="text-right">
-        <select class="dropdown-select w-100 pl-2" (change)="onChange($event.target.value)">
+        <select
+          class="dropdown-select w-100 pl-2"
+          [(ngModel)]="value"
+          (change)="onChange($event.target.value)"
+        >
           <option value="Completed" default>Completed</option>
           <option value="Assigned">Assigned</option>
           <option value="Accepted">Accepted</option>
           <option value="Rejected">Rejected</option>
           <option value="Approved">Approved</option>
-
         </select>
-
       </div>
     </div>
   </div>
-  <div class="card-body" style="padding: 10px; ">
+  <div class="card-body" style="padding: 10px;">
     <div class="table-responsive table-body">
       <table class="table table-bordered table-hover table-md">
         <thead class="thead-light" style="text-align: center;">
           <tr>
+            <th>&nbsp;</th>
             <th>Task Title</th>
-            <th>Worker Assigned</th>
+            <th>Assigned To</th>
             <th>Task Expiry</th>
             <th>Points</th>
-            <th>&nbsp;</th>
+            <th *ngIf="value == 'Assigned'">&nbsp;</th>
+            <th *ngIf="value == 'Completed'">&nbsp;</th>
           </tr>
         </thead>
         <tbody class="text-center">
-          <tr>
-            <td>
-              heloo
-            </td>
-            <td>
-              heloo
-            </td>
-            <td>
-              heloo
-            </td>
-            <td>
-              helloo
-            </td>
-            <td>
-              <img src="../../../assets/delete-icon.svg" class="img-fluid" alt="delete icon" />
-            </td>
-          </tr>
-          <!-- <tr
+          <tr
             *ngFor="
-              let cust of contacts
-                | paginate: { itemsPerPage: 2, currentPage: p };
-              let i = index
+              let item of list | paginate: { itemsPerPage: 10, currentPage: p } |filterBy: searchvalue 
             "
-            [routerLink]="[i]"
-            (click)="onclick(cust.fullname)"
-            routerLinkActive="active"
           >
             <td>
-              <button
-                style="padding: 5px 7px; cursor: pointer;"
-                class="btn btn-primary mt-3"
-                (click)="Model.show()"
-              >
-                <i class="fa fa-comments-o" aria-hidden="true"></i>
+              <button (click)="ModelPopup(item)" class="btn" type="button">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
               </button>
             </td>
-            <td>
-              <span class="circle mr-2 pt-2">
-                <i class="fa fa-user-o fa-2x" aria-hidden="true"></i>
-              </span>
-              <span class="text mt-1">
-                <p>
-                  <strong>{{ cust.fullname }}</strong>
-                </p>
-                <p class="email">{{ cust.email }}</p>
-              </span>
+
+            <td>{{ item.taskTitle }}</td>
+            <td>{{ item.userId.fullName }}</td>
+            <td>{{ item.taskExpiryAt | date: "medium" }}</td>
+            <td>{{ item.taskPoints }}</td>
+            <td *ngIf="item.taskStatus === 3">
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="onReview(item)"
+              >
+                Review Task
+              </button>
             </td>
-            <td class="text-center">
-              <p>
-                {{ cust.company }}
-              </p>
+            <td *ngIf="item.taskStatus !== 3 && value === 'Assigned'">
+              <button type="button" class="btn" (click)="onDelete(item._id)">
+                <img
+                  src="../../../assets/delete-icon.svg"
+                  class="img-fluid"
+                  alt="delete icon"
+                />
+              </button>
             </td>
-          </tr> -->
+          </tr>
         </tbody>
       </table>
-      <!-- <p class="text-center align-items-center" *ngIf="contacts.length === 0">
-        <strong> No contacts available</strong>
-      </p> -->
+      <p class="text-center align-items-center" *ngIf="(list | filterBy: searchvalue).length === 0">
+        <strong> No Task available</strong>
+      </p>
     </div>
   </div>
   <div class="pull-right">
-    <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+    <pagination-controls
+      class="my-pagination"
+      (pageChange)="p = $event"
+    ></pagination-controls>
   </div>
-
-
 </div>
 
-
-<div bsModal #model='bs-modal' class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-primary" role="document">
+<ng-template #gtModal let-c="close" let-d="dismiss">
+  <div>
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Assign Task</h4>
+        <h4 class="modal-title">{{ editMode ? "Update" : "View" }} Task</h4>
+        <span class="text-right" *ngIf="!editMode && !addMode">
+          <button class="btn pl-2" (click)="onUpdate()">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </span>
       </div>
-      <div class="modal-body">
-        <form>
+      <div class="modal-body model-body">
+        <form [formGroup]="taskFormGroup">
           <div class="form-group">
             <label for="formGroupExampleInput">Task Title</label>
-            <input type="text" class="form-control" placeholder="Example input placeholder">
+            <input
+              [attr.disabled]="!editMode ? '' : null"
+              type="text"
+              class="form-control"
+              formControlName="taskTitle"
+              placeholder="Task Title"
+            />
           </div>
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Task Discription:</label>
-            <textarea rows="2" type="text" class="form-control" #tomessage placeholder="Enter the message.."></textarea>
+            <label for="message-text" class="col-form-label"
+              >Task Discription:</label
+            >
+            <textarea
+              rows="2"
+              [attr.disabled]="!editMode ? '' : null"
+              type="text"
+              class="form-control"
+              formControlName="taskDescription"
+              placeholder="Enter the message.."
+            ></textarea>
           </div>
           <!-- <div class="col-4 route-effective-calendar"> -->
           <div class="form-group">
             <label>Effective Till</label>
-            <app-date-time [params]="params" (selectDate)="getDateSelection($event)">
-            </app-date-time>
+            <span class="date-time" [attr.disabled]="!editMode ? '' : null">
+              <app-date-time
+                [params]="params"
+                (selectDate)="getDateSelection($event)"
+              >
+              </app-date-time>
+            </span>
           </div>
           <!-- </div> -->
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Worker:</label>
-            <select class="form-control">
-              <option [selected]="true" [disabled]="true">Please select</option>
+            <select
+              class="form-control"
+              [attr.disabled]="!editMode ? '' : null"
+              formControlName="userId"
+            >
+              <option value="null" disabled>Select Worker</option>
               <option *ngFor="let cont of dropDown" [value]="cont._id">
-                {{ cont.fullName }}</option>
+                {{ cont.fullName }}</option
+              >
             </select>
           </div>
-
+          <div class="form-group">
+            <label for="formGroupExampleInput">Task Points (1-500)</label>
+            <input
+              type="number"
+              class="form-control"
+              [attr.disabled]="!editMode ? '' : null"
+              formControlName="taskPoints"
+              placeholder="Task Points"
+            />
+          </div>
         </form>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="Model.hide()">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            (click)="onClosePopup()"
+          >
+            {{ editMode ? "Close" : "Okay" }}
+          </button>
+          <button
+            *ngIf="editMode"
+            type="button"
+            class="btn btn-primary"
+            (click)="onUpdateSubmit()"
+          >
+            Update Task
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #addModel let-c="close" let-d="dismiss">
+  <div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Task</h4>
+      </div>
+      <div class="modal-body model-body">
+        <form [formGroup]="taskFormGroup">
+          <div class="form-group">
+            <label for="formGroupExampleInput">Task Title</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="taskTitle"
+              placeholder="Task Title"
+            />
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label"
+              >Task Discription:</label
+            >
+            <textarea
+              rows="2"
+              type="text"
+              class="form-control"
+              formControlName="taskDescription"
+              placeholder="Enter the message.."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label>Effective Till</label>
+            <span class="date-time">
+              <app-date-time
+                [params]="params"
+                (selectDate)="getDateSelection($event)"
+              >
+              </app-date-time>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Worker:</label>
+            <select class="form-control" formControlName="userId">
+              <option [selected]="true" [disabled]="true">Please select</option>
+              <option *ngFor="let cont of dropDown" [value]="cont._id">
+                {{ cont.fullName }}</option
+              >
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput">Task Points (1-500)</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="taskPoints"
+              placeholder="Task Points"
+            />
+          </div>
+        </form>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            (click)="onClosePopup()"
+          >
             Close
           </button>
-          <button type="button" class="btn btn-primary">
+          <button type="button" class="btn btn-primary" (click)="onAddSubmit()">
             Add Task
           </button>
         </div>
       </div>
     </div>
   </div>
-</div>
+</ng-template>
+
+<ng-template #baseModal let-c="close" let-d="dismiss">
+  <div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Task Details</h4>
+        <span class="text-right">
+          <button class="btn pl-2" (click)="d('cross link')">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </span>
+      </div>
+      <div class="modal-body" style="padding: 10px;">
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="text-left">Task Status</td>
+                    <td *ngIf="Task.taskStatus === 3">Completed</td>
+                    <td *ngIf="Task.taskStatus === 2">Accepted</td>
+                    <td *ngIf="Task.taskStatus === 1">Pending</td>
+                    <td *ngIf="Task.taskStatus === 4">Approved</td>
+                    <td *ngIf="Task.taskStatus === 5">Rejected</td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">Task Title</td>
+                    <td>{{ Task.taskTitle }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">Task Discription</td>
+                    <td>{{ Task.taskDescription }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">Task Assigned At</td>
+                    <td>{{ Task.taskAssignedAt | date: "medium" }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">Task Expiry At</td>
+                    <td>{{ Task.taskExpiryAt | date: "medium" }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">Task Points</td>
+                    <td>{{ Task.taskPoints }}</td>
+                  </tr>
+                  <tr *ngIf="Task.workerComments">
+                    <td class="text-left">Worker Comments</td>
+                    <td>{{ Task.workerComments }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <form>
+              <div class="form-group" *ngIf="taskReview">
+                <label for="message-text" class="col-form-label"
+                  >Comments:</label
+                >
+                <textarea
+                  rows="2"
+                  [(ngModel)]="comments"
+                  name="comment"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter the message.."
+                ></textarea>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div class="row pt-2" style="margin: 0px;">
+            <label class="w-80">Download File </label>
+            <div class="form-group">
+              <div class="upload-btn-wrapper">
+                <button type="button" class="upload-btn">
+                  <i class="fa fa-upload mr-1" aria-hidden="true"></i>
+                  Click To Download Files
+                  <input
+                    type="file"
+                    multiple
+                    
+                  />
+                </button>
+                <!-- <div *ngFor="let item of fileName">
+                  <span class="m-2">
+                    {{ item }}
+                  </span>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <button
+            *ngIf="!taskReview"
+            type="button"
+            class="btn btn-primary"
+            (click)="approveReview()"
+          >
+            Approve
+          </button>
+          <button
+            *ngIf="!taskReview"
+            type="button"
+            class="btn btn-danger"
+            (click)="rejectReview()"
+          >
+            Reject
+          </button>
+          <button
+            *ngIf="taskReview"
+            type="button"
+            class="btn btn-success"
+            (click)="taskReviews(Task._id)"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

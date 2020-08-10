@@ -33,13 +33,6 @@ export function successAlert(message: string, title?) {
   });
 }
 
-export function infoAlert(message: string, title?) {
-  Swal.fire({
-    icon: 'info',
-    title,
-    text: message,
-  });
-}
 
 
 export function deleteAlert() {
@@ -51,5 +44,16 @@ export function deleteAlert() {
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!'
+  });
+}
+export function infoAlert() {
+  return Swal.fire({
+    title: 'Do you want to accept this task?',
+    text: '',
+    icon: 'info',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, accept it!'
   });
 }

@@ -1,0 +1,13 @@
+.date-time{
+    border-radius:5px;
+    background-color:#E9EDF4;
+    color:#3E4B5B;
+    border-color:transparent !important;
+}
+
+.modal-body{
+    padding: 20px;
+}
+.modal-footer{
+    border-top: 0;
+}

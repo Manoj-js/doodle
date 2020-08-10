@@ -13,6 +13,8 @@ import { AuthServiceService } from './Services/auth-service.service';
 import { AuthInterceptor } from './Services/interceptor/interceptor.service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,8 @@ import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
     DashboardModule,
     HttpClientModule,
     ModalModule.forRoot(),
-    CalendarModule
+    CalendarModule,
+    NgbModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [

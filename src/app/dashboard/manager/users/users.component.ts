@@ -16,9 +16,11 @@ export class UsersComponent implements OnInit {
   public params: any;
   dateTimeFormat: string = 'YYYY-MM-DD HH:mm';
   effectiveTill: string;
+  searchvalue : any = { fullName: '' };
   workersList = []
   public userprofileDetails: ProfileDetailsApi_Response;
   @ViewChild('model') public Model: ModalDirective;
+  isShown:boolean = false;
   constructor(private managerService: ManagerService,
     private _auth: AuthServiceService) { }
 
@@ -37,8 +39,10 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  addContact() {
+  
 
+  logout(){
+    this._auth.onLogout()
   }
 
   getDateSelection(e) {
