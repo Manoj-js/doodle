@@ -89,7 +89,6 @@ export class UsersComponent implements OnInit {
         if (status == 1) {
           this.managerService.deactivateUSer(data).subscribe(
             (res) => {
-              console.log(res);
               this.defaultList();
             },
             (error: HttpErrorResponse) => {
@@ -99,7 +98,6 @@ export class UsersComponent implements OnInit {
         } else {
           this.managerService.activateUSer(data).subscribe(
             (res) => {
-              console.log(res);
               this.defaultList();
             },
             (error: HttpErrorResponse) => {

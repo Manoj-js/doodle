@@ -30,7 +30,7 @@ export class TasksComponent implements OnInit {
   dropDown = [];
   documents: number;
   searchvalue: any = { taskTitle: "" };
-  comments: string = "test"
+  comments: string = "test";
   value: string;
   editMode: boolean = false;
   taskFormGroup: FormGroup;
@@ -152,6 +152,9 @@ export class TasksComponent implements OnInit {
     });
   }
   onAddSubmit() {
+    if (this.taskFormGroup.valid || this.effectiveTill !== "Invalid date ") {
+      return;
+    }
     const data = {
       ...this.taskFormGroup.value,
       taskExpiryAt: this.effectiveTill,
@@ -288,7 +291,6 @@ export class TasksComponent implements OnInit {
       .utcOffset(environment.UTC)
       .format(this.dateTimeFormat);
     this.effectiveTill = selectedDateTime;
-    console.log(this.effectiveTill);
   }
 
   logout() {
@@ -299,9 +301,9 @@ export class TasksComponent implements OnInit {
     this.taskReviewValue = "approve";
   }
 
-  closeReviewPoup(){
-  this.taskReview = false
-  this.modelService.dismissAll()
+  closeReviewPoup() {
+    this.taskReview = false;
+    this.modelService.dismissAll();
   }
 
   rejectReview() {
@@ -309,7 +311,6 @@ export class TasksComponent implements OnInit {
     this.taskReviewValue = "reject";
   }
   taskReviews(id) {
-    console.log(id, this.comments);
     const data = {
       taskId: id,
       comments: this.comments,
@@ -319,7 +320,7 @@ export class TasksComponent implements OnInit {
         (res) => {
           if (res.status === 200) {
             successAlert(res.message);
-            this.taskReview = false
+            this.taskReview = false;
             this.onChange(this.value);
             this.modelService.dismissAll();
           }
@@ -333,7 +334,7 @@ export class TasksComponent implements OnInit {
         (res) => {
           if (res.status === 200) {
             successAlert(res.message);
-            this.taskReview = false
+            this.taskReview = false;
             this.onChange(this.value);
             this.modelService.dismissAll();
           }

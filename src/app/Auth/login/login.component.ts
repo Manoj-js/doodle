@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
     this._auth.login(this.loginForm.value).subscribe(
       (res: loginApi_Response) => {
         if (res.status === 200) {
-          console.log(res);
           successAlert(res.message);
           this._auth.storeAuthToken(res.data.token);
           if (res.data.userType === 1) {
@@ -62,7 +61,6 @@ export class LoginComponent implements OnInit {
         }
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
         errorAlert(error.error.message, error.statusText);
         this._router.navigateByUrl("/login");
       }

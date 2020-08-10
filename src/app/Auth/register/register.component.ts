@@ -51,7 +51,6 @@ export class RegisterComponent implements OnInit {
           this._router.navigateByUrl("/login");
         },
         (error: HttpErrorResponse) => {
-          console.log(error);
           errorAlert(error.error.message, error.statusText);
           this.registerForm.reset();
         }
@@ -62,7 +61,6 @@ export class RegisterComponent implements OnInit {
           this._router.navigateByUrl("/login");
         },
         (error: HttpErrorResponse) => {
-          console.log(error);
           errorAlert(error.error.message, error.statusText);
           this.registerForm.reset();
         }

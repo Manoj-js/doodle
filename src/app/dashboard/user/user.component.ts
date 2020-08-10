@@ -181,7 +181,6 @@ export class UserComponent implements OnInit {
       case "Completed": {
         this.userService.getCompletedList().subscribe((res) => {
           this.list = res.data;
-          console.log(res);
           this.value = "Completed";
         },
         (error: HttpErrorResponse) => {
