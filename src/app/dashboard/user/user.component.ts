@@ -29,7 +29,7 @@ export class UserComponent implements OnInit {
   dateTimeFormat: string = "YYYY-MM-DD HH:mm";
   effectiveTill: string;
   list = [];
-  searchvalue : any = { taskTitle: '' };
+  searchvalue: any = { taskTitle: '' };
   dropDown = [];
   @ViewChild("baseModal", { static: true })
   baseModal: TemplateRef<any>;
@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
     public _auth: AuthServiceService,
     private userService: UserService,
     private modelService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getProfileDetails()
@@ -143,17 +143,17 @@ export class UserComponent implements OnInit {
 
 
   accepetTask(id: string) {
-    
+
     infoAlert().then((result) => {
       if (result.value) {
         const Data = {
           taskId: id,
         };
         this.userService.acceptTask(Data).subscribe((res) => {
-              if (res.status === 200) {
-                this.onChange(this.value);
-              }
-            },
+          if (res.status === 200) {
+            this.onChange(this.value);
+          }
+        },
           (error: HttpErrorResponse) => {
             errorAlert(error.error.message, error.statusText);
           }
