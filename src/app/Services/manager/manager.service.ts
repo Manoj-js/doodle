@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
-import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { HttpHeaders, HttpClient, HttpBackend } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 
@@ -10,18 +10,26 @@ import { Observable } from "rxjs";
 export class ManagerService {
   taskUrl = environment.taskUrl;
   baseUrl = environment.baseUrl;
+  fileUrl = environment.fileUrl;
   httpOptions = {
     headers: new HttpHeaders({
       Accept: "application/json",
       "Content-Type": "application/json",
     }),
   };
-  constructor(private http: HttpClient) {}
+  httpOptions_file = {
+    headers: new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded",
+    }),
+    responseType: "blob" as "json",
+  };
+  constructor(private http: HttpClient,
+    private handler: HttpBackend) {}
 
   getAssignedList(): Observable<any> {
     return this.http
       .get<any>(
-        this.taskUrl + "/assigned/list?limit=10&page=0",
+        this.taskUrl + "/assigned/list",
         this.httpOptions
       )
       .pipe(map((res: Response) => res));
@@ -29,7 +37,7 @@ export class ManagerService {
   getApprovedList(): Observable<any> {
     return this.http
       .get<any>(
-        this.taskUrl + "/approved/list?limit=10&page=0",
+        this.taskUrl + "/approved/list",
         this.httpOptions
       )
       .pipe(map((res: Response) => res));
@@ -37,7 +45,7 @@ export class ManagerService {
   getRejectedList(): Observable<any> {
     return this.http
       .get<any>(
-        this.taskUrl + "/rejected/list?limit=10&page=0",
+        this.taskUrl + "/rejected/list",
         this.httpOptions
       )
       .pipe(map((res: Response) => res));
@@ -45,7 +53,7 @@ export class ManagerService {
   getCompletedList(): Observable<any> {
     return this.http
       .get<any>(
-        this.taskUrl + "/completed/list?limit=10&page=0",
+        this.taskUrl + "/completed/list",
         this.httpOptions
       )
       .pipe(map((res: Response) => res));
@@ -53,7 +61,7 @@ export class ManagerService {
   getAcceptedList(): Observable<any> {
     return this.http
       .get<any>(
-        this.taskUrl + "/accepted/list?limit=10&page=0",
+        this.taskUrl + "/accepted/list",
         this.httpOptions
       )
       .pipe(map((res: Response) => res));
@@ -61,7 +69,7 @@ export class ManagerService {
   getWorkersList(): Observable<any> {
     return this.http
       .get<any>(
-        this.baseUrl + "/workers/list?limit=10&page=0",
+        this.baseUrl + "/workers/list",
         this.httpOptions
       )
       .pipe(map((res: Response) => res));
@@ -102,4 +110,13 @@ export class ManagerService {
       .post<any>(this.taskUrl + "/reject", data, this.httpOptions)
       .pipe(map((res: Response) => res));
   }
+
+  fileDownload(data){
+  
+    return `${this.fileUrl}/${data}` 
+    
+    
+  }
+
 }
+

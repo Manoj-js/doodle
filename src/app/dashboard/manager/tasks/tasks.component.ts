@@ -14,7 +14,7 @@ import {
   errorAlert,
 } from "src/app/shared/sweetalert/sweetalert";
 import { HttpErrorResponse } from "@angular/common/http";
-
+import { saveAs } from 'file-saver';
 @Component({
   selector: "app-tasks",
   templateUrl: "./tasks.component.html",
@@ -28,6 +28,7 @@ export class TasksComponent implements OnInit {
   effectiveTill: string;
   list = [];
   dropDown = [];
+  documents: number
   searchvalue : any = { taskTitle: '' };
   comments: string;
   value: string;
@@ -36,6 +37,7 @@ export class TasksComponent implements OnInit {
   addMode: boolean = false;
   taskReview: boolean = false;
   taskReviewValue: string;
+  downloadUri = []
   public userprofileDetails: ProfileDetailsApi_Response;
   @ViewChild("model") public Model: ModalDirective;
   @ViewChild("profile") public Profile: ModalDirective;
@@ -47,6 +49,8 @@ export class TasksComponent implements OnInit {
   addModel: TemplateRef<any>;
   effectiveDate;
   isShown:boolean = false;
+  workerAttachments = []
+  fileUrl = environment.fileUrl;
   constructor(
     public _auth: AuthServiceService,
     private managerService: ManagerService,
@@ -113,17 +117,54 @@ export class TasksComponent implements OnInit {
   onReview(item) {
     console.log(item);
     this.Task = item;
-    this.params = {
-      effective_till: item.taskExpiryAt,
-    };
-
-    this.taskFormGroup.patchValue({
-      taskTitle: item.taskTitle,
-      taskDescription: item.taskDescription,
-      taskPoints: item.taskPoints,
-      userId: item.userId._id,
-    });
+     this.documents = item.workerAttachments.length
+     this.workerAttachments = item.workerAttachments
     this.modelService.open(this.baseModal);
+  }
+  downloadFiles(urls){
+    console.log(urls)
+    
+      var link = document.createElement('a');
+    
+      link.setAttribute('download', null);
+      link.style.display = 'none';
+    
+      document.body.appendChild(link);
+    
+      for (var i = 0; i < urls.length; i++) {
+        console.log(urls[i])
+        link.setAttribute('href', `${this.fileUrl}/${urls[i]}`);
+        link.click();
+      }
+    
+      document.body.removeChild(link);
+    
+    // let data = ''
+    // let index: number = 0
+    // data = this.workerAttachments[index]
+
+  
+// var links = [ 'https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.exe',
+//  'https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.dmg',
+//   'https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar' ];
+//    function downloadAll(urls) 
+  
+//     if(this.documents !=0){
+//       for (var i = 0; i < this.workerAttachments.length; i++) {
+//         this.downloadUri.push ( `${this.fileUrl}/${this.workerAttachments[i]}`)
+//       }
+//     //  this.documents = this.documents -1
+    //  index = index +1
+      // this.managerService.fileDownload(data).subscribe((res: any) => {
+        
+      //   this.documents = this.documents -1
+      //   index = index +1
+      // },
+      // (error: HttpErrorResponse) => {
+      //   console.log(error)
+      //   errorAlert(error.message, error.statusText)
+      // })
+    
   }
 
   onDelete(id: string) {

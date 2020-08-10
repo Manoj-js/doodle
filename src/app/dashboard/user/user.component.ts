@@ -98,7 +98,7 @@ export class UserComponent implements OnInit {
     formData.append("comments", this.comments);
     formData.append("taskId", this.Task._id);
     for (var i = 0; i < this.files.length; i++) {
-      formData.append("file[]", this.files[i]);
+      formData.append(`file[${i}]`, this.files[i]);
     }
     this.fileData = formData;
   }

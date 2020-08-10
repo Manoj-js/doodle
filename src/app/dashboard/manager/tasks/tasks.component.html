@@ -453,27 +453,16 @@
         </div>
 
         <div class="modal-footer">
-          <div class="row pt-2" style="margin: 0px;">
-            <label class="w-80">Download File </label>
-            <div class="form-group">
-              <div class="upload-btn-wrapper">
-                <button type="button" class="upload-btn">
-                  <i class="fa fa-upload mr-1" aria-hidden="true"></i>
-                  Click To Download Files
-                  <input
-                    type="file"
-                    multiple
-                    
-                  />
-                </button>
-                <!-- <div *ngFor="let item of fileName">
-                  <span class="m-2">
-                    {{ item }}
-                  </span>
-                </div> -->
-              </div>
-            </div>
-          </div>
+          <!-- <a class="btn" [href]="downloadUri" download (click)="downloadFiles()">Download  {{documents != 0 ?  documents : ''}} </a> -->
+          <button
+            *ngIf="!taskReview"
+            type="button"
+            [disabled]="documents <= 0"
+            class="btn btn-primary text-right"
+            (click)="downloadFiles(workerAttachments)"
+          >
+            Download File   {{documents != 0 ?  documents : ''}}
+          </button>
           <button
             *ngIf="!taskReview"
             type="button"
